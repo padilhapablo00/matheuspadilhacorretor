@@ -1,0 +1,28 @@
+COMO PUBLICAR O SITE DO MATHEUS
+================================
+
+PASSO 1 — criar o repositorio (uma vez so')
+  Acesse: https://github.com/new
+  Repository name:  matheuspadilha
+  Marque:           Public
+  NAO marque nada em "Initialize this repository"
+  Clique em "Create repository"
+
+PASSO 2 — publicar (o Pablo Luz roda o comando por voce)
+  Depois de criar, me avise que eu envio os arquivos.
+
+PASSO 3 — ligar o site
+  No repositorio: Settings > Pages
+  Branch: main  /  (root)  >  Save
+
+  O site fica em:  https://padilhapablo00.github.io/matheuspadilha/
+
+PASSO 4 (opcional) — dominio proprio
+  Registre em https://registro.br  (~R$ 40/ano)
+  Ex.: matheuspadilha.com.br
+  Depois, em Settings > Pages > Custom domain, informe o dominio
+  e no registro.br aponte para:
+     185.199.108.153
+     185.199.109.153
+     185.199.110.153
+     185.199.111.153
