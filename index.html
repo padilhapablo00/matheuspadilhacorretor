@@ -918,7 +918,8 @@ function seFalhar(img, aoFalhar){
 seFalhar($('fotoM'), ()=>$('retrato').classList.add('semfoto'));
 seFalhar($('imgNet'), ()=>$('netLogo').classList.add('semlogo'));
 preencheFiltros(); renderGrade();
-$('waTopo').href = WHATS ? 'https://wa.me/'+WHATS : '#imoveis';
+$('waTopo').href = WHATS ? 'https://wa.me/'+WHATS+'?text='+encodeURIComponent(
+  'Olá! Vim pelo site e gostaria de saber mais sobre os imóveis disponíveis.') : '#imoveis';
 })();
 </script>
 </body>
