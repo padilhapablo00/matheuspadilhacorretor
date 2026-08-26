@@ -151,9 +151,7 @@ textarea{resize:vertical;min-height:70px}
 .card .capa{aspect-ratio:4/3;position:relative;background:#e4e1da;overflow:hidden}
 .card .capa img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .card:hover .capa img{transform:scale(1.05)}
-.cod{position:absolute;top:11px;left:11px;z-index:2;font-size:11px;font-weight:600;padding:5px 10px;
-  border-radius:7px;background:rgba(21,25,29,.8);color:#fff;backdrop-filter:blur(6px)}
-.nfotos{position:absolute;bottom:11px;right:11px;z-index:2;font-size:11.5px;font-weight:600;padding:5px 10px;
+.nfotos{position:absolute;top:11px;right:11px;z-index:2;font-size:11.5px;font-weight:600;padding:5px 10px;
   border-radius:7px;background:rgba(21,25,29,.8);color:#fff;display:flex;align-items:center;gap:5px}
 .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--linha)}
 .strip .mini{aspect-ratio:1;overflow:hidden;background:#e4e1da;position:relative}
@@ -438,45 +436,69 @@ const P = "img/imoveis/";              // pasta das fotos
 
 /* Fotos são REAIS; texto, valores e endereços são de demonstração. */
 const IMOVEIS = [
-  {id:1,cod:"CA-101",tit:"Casa de esquina com terreno amplo",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:650000,q:3,banh:2,vg:2,area:215,terreno:500,pasta:"im1",n:17,
+  {id:1,tit:"Casa de esquina com terreno amplo",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:650000,q:3,banh:2,vg:2,area:215,terreno:500,pasta:"im1",n:17,
    desc:"Casa de esquina com 215 m² de área construída, em terreno com mais de 500 m². Excelente oportunidade para investidor: o terreno comporta a construção de kitnets.",
    itens:["3 quartos","2 banheiros","Casa de esquina","Terreno +500 m²","Potencial para kitnets","Ótima para investidor"]},
-  {id:2,cod:"CA-102",tit:"Casa com garagem no subsolo",tipo:"Casa",cidade:"Cruz Alta",bairro:"São Miguel",end:"",preco:299000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im2",n:11,
+  {id:2,tit:"Casa com garagem no subsolo",tipo:"Casa",cidade:"Cruz Alta",bairro:"São Miguel",end:"",preco:299000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im2",n:11,
    desc:"Casa bem localizada, espaçosa e próxima ao centro. Terreno grande e garagem no subsolo.",
    itens:["2 quartos","Sala","Cozinha","Banheiro","Garagem no subsolo","Terreno grande"]},
-  {id:3,cod:"CA-103",tit:"Casa de esquina com piscina",tipo:"Casa",cidade:"Cruz Alta",bairro:"Bonini 2",end:"",preco:480000,q:2,banh:1,vg:3,area:0,terreno:330,pasta:"im3",n:16,
+  {id:3,tit:"Casa de esquina com piscina",tipo:"Casa",cidade:"Cruz Alta",bairro:"Bonini 2",end:"",preco:480000,q:2,banh:1,vg:3,area:0,terreno:330,pasta:"im3",n:16,
    desc:"Casa de esquina com ótimo espaço externo e área de lazer para aproveitar com a família. Terreno de 11 x 30 m.",
    itens:["2 quartos, sendo 1 suíte","2 salas","Cozinha","Garagem para 3 carros","Lavanderia","Piscina de 18 mil litros"]},
-  {id:4,cod:"CA-104",tit:"Casa alto padrão mobiliada",tipo:"Casa",cidade:"Cruz Alta",bairro:"Loteamento Bela Vista",end:"",preco:550000,q:2,banh:2,vg:2,area:132,terreno:312,pasta:"im4",n:11,
+  {id:4,tit:"Casa alto padrão mobiliada",tipo:"Casa",cidade:"Cruz Alta",bairro:"Loteamento Bela Vista",end:"",preco:550000,q:2,banh:2,vg:2,area:132,terreno:312,pasta:"im4",n:11,
    desc:"Casa pronta para morar, vendida totalmente mobiliada, com móveis planejados em todos os ambientes. Região tranquila e valorizada da cidade. Terreno de 12,5 x 25 m.",
    itens:["2 quartos","2 banheiros","Sala integrada à cozinha","Móveis planejados","Quiosque mobiliado","Piscina com aquecimento","2 vagas","Portões eletrônicos","Murado e gradeado"]},
-  {id:5,cod:"AP-105",tit:"Apartamento no Edifício Torino",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Centro",end:"",preco:650000,q:2,banh:2,vg:1,area:0,terreno:0,pasta:"im5",n:11,
+  {id:5,tit:"Apartamento no Edifício Torino",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Centro",end:"",preco:650000,q:2,banh:2,vg:1,area:0,terreno:0,pasta:"im14",n:16,
    desc:"No coração de Cruz Alta, em um dos endereços mais desejados da cidade. Conforto e localização que poucos apartamentos entregam.",
    itens:["2 dormitórios","Suíte com closet","Sala ampla","Churrasqueira interna","Lavanderia","Água quente e chuveiros a gás","Garagem coberta"]},
-  {id:6,cod:"CA-106",tit:"Casa com pátio no Ferroviário",tipo:"Casa",cidade:"Cruz Alta",bairro:"Ferroviário",end:"",preco:318000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im6",n:7,
+  {id:6,tit:"Casa com pátio no Ferroviário",tipo:"Casa",cidade:"Cruz Alta",bairro:"Ferroviário",end:"",preco:318000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im6",n:7,
    desc:"Excelente oportunidade para quem busca conforto, praticidade e um ótimo espaço para morar. Estuda propostas.",
    itens:["2 quartos","Sala ampla","Cozinha","Banheiro social","Área de serviço","Vaga de garagem","Pátio"]},
-  {id:7,cod:"CA-107",tit:"Casa completa com piscina",tipo:"Casa",cidade:"Cruz Alta",bairro:"Lizabel",end:"",preco:390000,q:2,banh:1,vg:1,area:102,terreno:0,pasta:"im7",n:9,
+  {id:7,tit:"Casa completa com piscina",tipo:"Casa",cidade:"Cruz Alta",bairro:"Lizabel",end:"",preco:390000,q:2,banh:1,vg:1,area:102,terreno:0,pasta:"im7",n:9,
    desc:"Imóvel pronto para morar, com conforto, espaço e excelente área de lazer. 102,20 m² de área privativa. Aceita financiamento e estuda propostas.",
    itens:["2 dormitórios","Banheiro social","Sala com lareira","Cozinha funcional","Garagem","Piso laminado","Piscina","Churrasqueira"]},
-  {id:8,cod:"CA-108",tit:"Casa com terreno arborizado",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:480000,q:2,banh:1,vg:3,area:131,terreno:0,pasta:"im8",n:17,
+  {id:8,tit:"Casa com terreno arborizado",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:480000,q:2,banh:1,vg:3,area:131,terreno:0,pasta:"im8",n:17,
    desc:"Localizada em bairro tranquilo, seguro e próximo de escola. Terreno amplo e arborizado com árvores frutíferas. Valor com placa solar: R$ 530 mil. Estuda proposta com imóvel de até R$ 250 mil como parte do pagamento.",
    itens:["2 quartos (1 com ar-condicionado)","Banheiro social","Sala de estar","Sala principal","Cozinha ampla","Lavanderia","Lareira","Churrasqueira elétrica","Garagem para 3 carros","Portão eletrônico"]},
-  {id:9,cod:"CA-109",tit:"Casa na Boa Parada",tipo:"Casa",cidade:"Cruz Alta",bairro:"Boa Parada",end:"",preco:215000,q:2,banh:1,vg:0,area:0,terreno:390,pasta:"im9",n:13,
+  {id:9,tit:"Casa na Boa Parada",tipo:"Casa",cidade:"Cruz Alta",bairro:"Boa Parada",end:"",preco:215000,q:2,banh:1,vg:0,area:0,terreno:390,pasta:"im9",n:13,
    desc:"A apenas 2 quadras da Xavantes, rua asfaltada e calçada em toda a volta. Terreno de 12 x 32,5 m. Aceita caminhonete no negócio. Não financia no momento.",
    itens:["2 quartos","Sala","Cozinha mista","Banheiro","Terreno 12x32,5","Rua asfaltada"]},
-  {id:10,cod:"AP-110",tit:"Apartamento exclusivo — andar inteiro",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Edifício Bela Vista",end:"",preco:1750000,q:3,banh:4,vg:2,area:268,terreno:0,pasta:"im10",n:9,
+  {id:10,tit:"Apartamento exclusivo — andar inteiro",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Edifício Bela Vista",end:"",preco:1750000,q:3,banh:4,vg:2,area:268,terreno:0,pasta:"im10",n:9,
    desc:"Um apartamento por andar: 7º andar inteiro exclusivo, em empreendimento com apenas 8 moradores. 268 m² de área privativa e 328 m² de área total. Estuda proposta.",
    itens:["3 quartos","Suíte principal com banheira","4 banheiros","2 vagas","Sala de estar ampla","Sala de jantar","Lavanderia","Churrasqueira","Lareira","Sacada frontal e lateral","Salão de festas"]},
-  {id:11,cod:"TE-111",tit:"Terreno com casa — ótima localização",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:150000,q:0,banh:0,vg:0,area:63,terreno:280,pasta:"im11",n:1,
+  {id:11,tit:"Terreno com casa — ótima localização",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:150000,q:0,banh:0,vg:0,area:63,terreno:280,pasta:"im11",n:1,
    desc:"Terreno com excelente localização, ideal para moradia ou investimento. Medidas de 9,50 x 29,49 m, com 63 m² construídos. Próximo ao São Vicente de Paulo, Delegacia e Escola CIEP.",
    itens:["Terreno 9,50 x 29,49 m","63 m² construídos","Localização estratégica","Ideal para investimento"]},
-  {id:12,cod:"CA-112",tit:"Casa de esquina com piscina e quiosque",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:630000,q:2,banh:2,vg:1,area:0,terreno:0,pasta:"im12",n:30,
-   desc:"Localização estratégica, próxima a mercado e à Delegacia Civil. Aceita financiamento, proposta à vista, entrada + parcelamento safra (entrada mínima R$ 350.000) e permuta por apartamento no litoral.",
-   itens:["2 dormitórios, sendo 1 suíte","2 banheiros","Cozinha funcional","Lavanderia","Quiosque","Piscina","Casa de esquina"]},
-  {id:13,cod:"CA-113",tit:"Casa com terreno amplo no Ferroviário",tipo:"Casa",cidade:"Cruz Alta",bairro:"Ferroviário",end:"",preco:280000,q:2,banh:1,vg:0,area:65,terreno:372,pasta:"im13",n:9,
+  {id:13,tit:"Casa com terreno amplo no Ferroviário",tipo:"Casa",cidade:"Cruz Alta",bairro:"Ferroviário",end:"",preco:280000,q:2,banh:1,vg:0,area:65,terreno:372,pasta:"im13",n:9,
    desc:"Casa de aproximadamente 65 m² em terreno amplo de 372,50 m², com frente para a Rua Borges do Canto. Entra no programa Minha Casa Minha Vida. Excelente para quem busca espaço ou deseja ampliar.",
-   itens:["2 dormitórios","Sala com lareira","Cozinha","Despensa","Banheiro social","Terreno 372,50 m²","Minha Casa Minha Vida"]}
+   itens:["2 dormitórios","Sala com lareira","Cozinha","Despensa","Banheiro social","Terreno 372,50 m²","Minha Casa Minha Vida"]},
+  {id:14,tit:"Terreno na Rua Neco Paula",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:55000,q:0,banh:0,vg:0,area:0,terreno:336,pasta:"im15",n:2,
+   desc:"Excelente oportunidade para construir a casa dos sonhos ou investir. Terreno na Rua Neco Paula, medindo 12 x 28 m.",
+   itens:["Terreno 12 x 28 m (336 m²)","Rua Neco Paula","Ideal para construir ou investir"]},
+  {id:15,tit:"Área comercial próxima à BR",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:650000,q:0,banh:0,vg:0,area:0,terreno:7200,pasta:"im17",n:5,
+   desc:"Terreno de 90 x 80 m em localização estratégica, próximo à BR. Ideal para construção de galpões, empresas ou desmembramento em lotes — grande potencial de valorização.",
+   itens:["Terreno 90 x 80 m","Próximo à BR","Ideal para galpões e empresas","Possibilidade de desmembramento em lotes"]},
+  {id:16,tit:"Terreno de esquina no Prefeito Vila Nova",tipo:"Terreno",cidade:"Cruz Alta",bairro:"Prefeito Vila Nova",end:"",preco:150000,q:0,banh:0,vg:0,area:0,terreno:840,pasta:"im18",n:2,
+   desc:"Terreno de esquina com 21 x 40 m, com possibilidade de desmembrar em até 3 terrenos. Próximo ao EASA, à BR e à escola — excelente localização e potencial de valorização.",
+   itens:["Terreno de esquina 21 x 40 m (840 m²)","Desmembra em até 3 terrenos","Próximo ao EASA, BR e escola"]},
+  {id:17,tit:"Apartamento em frente à Praça da Matriz",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Centro",end:"",preco:390000,q:3,banh:2,vg:2,area:0,terreno:0,pasta:"im19",n:11,
+   desc:"Apartamento completo em uma das localizações mais valorizadas da cidade, em frente à Praça da Matriz. Ideal para morar com conforto ou investir.",
+   itens:["3 dormitórios","2 banheiros","Sala ampla e aconchegante","Cozinha","Sacada","Garagem para 2 carros"]},
+  {id:19,tit:"Apartamento — programa Minha Casa Minha Vida",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"",end:"",preco:230000,q:2,banh:1,vg:1,area:74,terreno:0,pasta:"im21",n:9,
+   desc:"Apartamento ideal para sair do aluguel, com financiamento facilitado pelo Minha Casa Minha Vida. Próximo ao centro. Em parceria com a Aura Imobiliária.",
+   itens:["2 dormitórios","Sala aconchegante","Cozinha integrada com área de serviço","Banheiro social","Garagem","74 m² de área privativa","Minha Casa Minha Vida"]},
+  {id:20,tit:"Imóvel comercial na Avenida Santa Bárbara",tipo:"Comercial",cidade:"Cruz Alta",bairro:"",end:"",preco:700000,q:0,banh:0,vg:0,area:0,terreno:2600,pasta:"im22",n:8,
+   desc:"Imóvel com 2.600 m² de área na Avenida Santa Bárbara, uma das de maior fluxo da cidade. Estrutura existente permite diversas utilizações: centro de estética automotiva, lavagem de veículos, revenda ou novos empreendimentos.",
+   itens:["2.600 m² de área","Avenida Santa Bárbara","Excelente visibilidade","Diversas possibilidades de uso"]},
+  {id:21,tit:"Apartamento na Avenida Barão do Rio Branco",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"",end:"",preco:700000,q:2,banh:2,vg:2,area:0,terreno:0,pasta:"im23",n:17,
+   desc:"Apartamento no 2º andar, em uma das avenidas mais conhecidas e valorizadas da cidade. Conforto e espaço em localização privilegiada.",
+   itens:["2 quartos, sendo 1 suíte","Banheiro social","Sala ampla com lareira","Cozinha","Lavanderia","Churrasqueira interna","Sacada","Garagem para 2 carros","Depósito"]},
+  {id:22,tit:"Chácara ao lado da cidade",tipo:"Chácara",cidade:"Cruz Alta",bairro:"",end:"",preco:700000,q:2,banh:2,vg:1,area:181,terreno:1321,pasta:"im24",n:17,
+   desc:"Chácara com 1.321 m² de área total, a poucos minutos da cidade. Casa de dois pavimentos: no superior, quarto, banheiro, sala e sacada com ótima vista; no térreo, sala principal ampla, cozinha, lavanderia, banheiro, quarto e garagem.",
+   itens:["Área total 1.321 m²","Terreno 22,75 x 52,96 m","Área construída 181 m²","2 pavimentos","Sacada com vista"]},
+  {id:23,tit:"Casa no Bela Vista",tipo:"Casa",cidade:"Cruz Alta",bairro:"Bela Vista",end:"",preco:450000,q:1,banh:1,vg:0,area:60,terreno:300,pasta:"im25",n:11,
+   desc:"Casa com apenas 2 anos de construção, murada e gradeada, com lareira, laje e acabamento em gesso. Possui projeto completo de ampliação com quiosque, churrasqueira, garagem coberta, banheiro, área de serviço e piscina. Aceita veículo de até R$ 100 mil no negócio.",
+   itens:["Terreno de 300 m²","Área construída 59,88 m²","Sala e cozinha integradas","1 dormitório","1 banheiro","Projeto de ampliação incluso","Aceita veículo até R$ 100 mil"]}
 ];
 
 /* ========================================================================== */
@@ -507,7 +529,6 @@ function renderGrade(){
       `<div class="mini"><img src="${thumb(i,k+1)}" alt="" loading="lazy"></div>`).join(''):'';
     return `<article class="card" data-id="${i.id}" tabindex="0" role="button">
       <div class="capa"><img src="${capa(i)}" alt="${esc(i.tit)}" loading="lazy">
-        <span class="cod">${esc(i.cod)}</span>
         ${temFotos?`<span class="nfotos">${i.n+1} fotos</span>`:''}</div>
       ${temFotos?`<div class="strip" style="grid-template-columns:repeat(${nMini+(extra>0?1:0)},1fr)">${minis}${
         extra>0?`<div class="mini mais">+${extra}</div>`:''}</div>`:''}
@@ -544,7 +565,7 @@ function abrir(id, direto){
   $('moIm').src=capa(AT); $('moIm').alt=AT.tit;
   $('moHead').classList.toggle('semfoto', !(AT.n>0));
   $('moTit').textContent=AT.tit;
-  $('moLoc').textContent=AT.cod+' · '+local(AT,true);
+  $('moLoc').textContent=local(AT,true);
   $('moPreco').textContent=brl(AT.preco);
   direto ? telaForm() : telaImovel();
   mo.classList.add('on'); document.body.style.overflow='hidden';
@@ -764,7 +785,7 @@ function telaFim(abriu){
     <p>Toque abaixo para me enviar a ficha completa — vai a <b>imagem com todos os dados</b>
        junto com a mensagem.</p>
     <div class="resumo"><h4>Imóvel</h4>
-      <div class="rl"><span>${esc(AT.cod)}</span><b>${esc(AT.tit)}</b></div>
+      <div class="rl"><span>Imóvel</span><b>${esc(AT.tit)}</b></div>
       <div class="rl"><span>Local</span><b>${esc(local(AT,true))}</b></div>
       <div class="rl"><span>Valor</span><b class="num">${brl(AT.preco)}</b></div></div>
     <div class="resumo"><h4>Suas respostas</h4>
@@ -783,7 +804,7 @@ function montarMensagem(){
   // *texto* fica em negrito no WhatsApp
   const L=['Olá '+CORRETOR+'! Preenchi a ficha no site.','',
     '*IMÓVEL DE INTERESSE*',
-    AT.cod+' — '+AT.tit, local(AT,true), '*'+brl(AT.preco)+'*',
+    AT.tit, local(AT,true), '*'+brl(AT.preco)+'*',
     [AT.q?AT.q+' dorm.':'', AT.banh?AT.banh+' banh.':'', AT.area?AT.area+' m²':'', AT.terreno?'terreno '+AT.terreno+' m²':''].filter(Boolean).join(' · ')+(AT.terreno?' · terreno '+AT.terreno+' m²':''),
     '', '*MINHA SITUAÇÃO*'];
   linhasResumo().forEach(l=>L.push('• '+l[0]+': '+l[1]));
@@ -834,7 +855,7 @@ async function gerarImagemFicha(){
     x.fillStyle='#fff'; x.font='700 34px Inter, sans-serif';
     x.fillText(brl(AT.preco), 40, y+alturaFoto-52);
     x.font='400 20px Inter, sans-serif';
-    x.fillText(AT.cod+' · '+local(AT,false), 40, y+alturaFoto-22);
+    x.fillText(local(AT,false), 40, y+alturaFoto-22);
     x.restore(); y += alturaFoto;
   }
 
@@ -887,7 +908,7 @@ async function enviarFicha(){
   try{
     btn.textContent = 'Preparando...';
     const blob = await gerarImagemFicha();
-    const arq = new File([blob], 'ficha-'+AT.cod+'.jpg', {type:'image/jpeg'});
+    const arq = new File([blob], 'ficha-imovel-'+AT.id+'.jpg', {type:'image/jpeg'});
     // Web Share: manda a FICHA como arquivo direto pro WhatsApp (celular)
     if(navigator.canShare && navigator.canShare({files:[arq]})){
       await navigator.share({files:[arq], text: montarMensagem()});
