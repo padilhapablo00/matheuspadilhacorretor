@@ -132,6 +132,9 @@ textarea{resize:vertical;min-height:70px}
 .passos-nota svg{flex:none;color:var(--ac);margin-top:1px}
 .passos-nota p{margin:0;font-size:12.5px;color:var(--tinta2);line-height:1.5}
 .passos-corpo .btn{margin-top:16px}
+.passo-btn{margin-top:11px !important;padding:9px 16px;font-size:13px;gap:7px}
+.passo-link{display:inline-flex;align-items:center;margin-top:6px;font-size:13px;font-weight:600;color:var(--ac)}
+.passo-link:hover{color:var(--ac2)}
 .net-logo{background:#fff;padding:5px;width:52px;height:52px;flex:0 0 52px;border-radius:50%}
 .net-logo img{width:100%;height:100%;object-fit:contain}
 .net-logo .net-txt{display:none;font-size:11px;font-weight:700;color:#1f3d6b;text-align:center;line-height:1.1}
@@ -244,6 +247,18 @@ textarea{resize:vertical;min-height:70px}
   transform:scale(.96) translateY(12px);opacity:0;transition:transform .35s cubic-bezier(.2,.75,.2,1),opacity .35s;
   margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.4)}
 .mo.show .mocx{transform:none;opacity:1}
+.mo.avulso .mohead{display:none}
+.ficha-cab{padding:6px 4px 4px}
+.ficha-cab .et{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+.ficha-cab h2{font-family:var(--disp);font-size:21px;font-weight:600;margin:4px 0 6px;letter-spacing:-.01em}
+.ficha-cab p{color:var(--tinta2);font-size:13.5px;line-height:1.55;margin:0 0 16px}
+.doc-toggle{background:var(--surf2);border:1px solid var(--linha);border-radius:12px;padding:12px 14px;margin-bottom:20px}
+.doc-toggle summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--tinta);list-style:none}
+.doc-toggle summary::-webkit-details-marker{display:none}
+.doc-toggle summary::before{content:"+";display:inline-block;width:16px;color:var(--ac);font-weight:700}
+.doc-toggle[open] summary::before{content:"–"}
+.doc-lista{margin:12px 0 0;padding:0 0 0 18px;font-size:13px;color:var(--tinta2);line-height:1.9}
+.doc-nota{margin:10px 0 0;font-size:12px;color:var(--mut);line-height:1.55}
 .mohead{position:relative;background:#e4e1da}
 .mohead img{width:100%;aspect-ratio:16/10;object-fit:cover}
 .mohead.semfoto img{aspect-ratio:auto;height:190px;object-fit:contain;padding:18px 0 44px}
@@ -456,25 +471,31 @@ footer a{color:#cfd6dc}
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/></svg></div>
       <span class="et">Passo a passo</span>
       <h2>Financiamento Minha Casa, Minha Vida</h2>
-      <p>Do contrato até o dinheiro na mão do vendedor — veja por onde o processo passa.</p>
+      <p>Da ficha até o dinheiro na mão do vendedor — veja por onde o processo passa.</p>
     </div>
     <div class="passos-corpo">
       <ol class="passos-lista">
         <li class="passo destaque"><b class="num">1</b><div class="tx">
-          <h4>Contrato de compra e venda</h4><p>Cliente aprova e assinamos o contrato.</p></div></li>
+          <h4>Passar a ficha</h4><p>Você me manda sua situação e eu já te digo quanto dá pra aprovar — antes de sair procurando casa.</p>
+          <button class="btn btn-p passo-btn" type="button" id="btnFichaAvulsa">Quero passar minha ficha →</button></div></li>
         <li class="passo"><b class="num">2</b><div class="tx">
-          <h4>Engenharia — R$ 750</h4><p>Geramos a guia e aguardamos a avaliação do imóvel.</p></div></li>
+          <h4>Procurar o imóvel</h4><p>Com o valor aprovado em mãos, a gente escolhe entre os imóveis disponíveis.</p>
+          <a href="#imoveis" class="passo-link" id="linkImoveisPasso">Ver imóveis disponíveis →</a></div></li>
         <li class="passo"><b class="num">3</b><div class="tx">
-          <h4>Avaliação aprovada</h4><p>A avaliação é anexada à ficha do comprador para dar sequência ao processo.</p></div></li>
+          <h4>Contrato de compra e venda</h4><p>Cliente aprova e assinamos o contrato.</p></div></li>
         <li class="passo"><b class="num">4</b><div class="tx">
-          <h4>Caixa Econômica</h4><p>Com a ficha aprovada, acontece o atendimento com os compradores e, depois, com os vendedores.</p></div></li>
+          <h4>Engenharia — R$ 750</h4><p>Geramos a guia e aguardamos a avaliação do imóvel.</p></div></li>
         <li class="passo"><b class="num">5</b><div class="tx">
-          <h4>Tabelionato</h4><p>Documentação segue para os procedimentos necessários.</p></div></li>
+          <h4>Avaliação aprovada</h4><p>A avaliação é anexada à ficha do comprador para dar sequência ao processo.</p></div></li>
         <li class="passo"><b class="num">6</b><div class="tx">
-          <h4>Registro de Imóveis</h4><p>O contrato é registrado oficialmente.</p></div></li>
+          <h4>Caixa Econômica</h4><p>Com a ficha aprovada, acontece o atendimento com os compradores e, depois, com os vendedores.</p></div></li>
         <li class="passo"><b class="num">7</b><div class="tx">
+          <h4>Tabelionato</h4><p>Documentação segue para os procedimentos necessários.</p></div></li>
+        <li class="passo"><b class="num">8</b><div class="tx">
+          <h4>Registro de Imóveis</h4><p>O contrato é registrado oficialmente.</p></div></li>
+        <li class="passo"><b class="num">9</b><div class="tx">
           <h4>Retorno à Caixa</h4><p>Documentação registrada volta para a Caixa para conclusão.</p></div></li>
-        <li class="passo destaque"><b class="num">8</b><div class="tx">
+        <li class="passo destaque"><b class="num">10</b><div class="tx">
           <h4>Pagamento ao vendedor</h4><p>Após a conclusão, a Caixa libera o valor aos vendedores. Processo concluído.</p></div></li>
       </ol>
       <div class="passos-nota">
@@ -657,9 +678,18 @@ function abrir(id, direto){
   requestAnimationFrame(()=>requestAnimationFrame(()=>mo.classList.add('show')));
 }
 function fechar(){mo.classList.remove('show');document.body.style.overflow='';
-  setTimeout(()=>mo.classList.remove('on'),340);}
+  setTimeout(()=>{mo.classList.remove('on');mo.classList.remove('avulso');},340);}
 $('moX').onclick=fechar; $('moFundo').onclick=fechar;
 $('moHead').onclick=()=>{if(AT&&AT.n>0)abrirLb(0);};
+
+/* ---------- ficha avulsa (sem imovel escolhido ainda) ---------- */
+function abrirFichaAvulsa(){
+  AT=null; R={compra:'precisa'}; ETAPA=2;
+  mo.classList.add('avulso');
+  telaForm();
+  mo.classList.add('on'); document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>mo.classList.add('show')));
+}
 
 /* ---------- passo a passo MCMV ---------- */
 const moPassos = $('moPassos');
@@ -675,6 +705,8 @@ function fecharPassos(){
 }
 $('btnPassos').onclick=abrirPassos;
 $('moPassosX').onclick=fecharPassos; $('moPassosFundo').onclick=fecharPassos;
+$('btnFichaAvulsa').onclick=()=>{ fecharPassos(); setTimeout(abrirFichaAvulsa,340); };
+$('linkImoveisPasso').onclick=fecharPassos;
 
 /* ---------- lightbox ---------- */
 let LBI=0;
@@ -728,7 +760,23 @@ const OPCOES_COMPRA=[
   {v:"precisa",t:"Vou precisar de financiamento",       s:"Ainda não fui ao banco"},
   {v:"vista",  t:"Vou pagar à vista",                   s:"Sem financiamento"}
 ];
-const trilha=n=>`<div class="trilha">${[1,2,3].map(i=>`<div class="${i<=n?'on':''}"></div>`).join('')}</div>`;
+const trilha=(n,total=3)=>`<div class="trilha">${Array.from({length:total},(_,k)=>k+1).map(i=>`<div class="${i<=n?'on':''}"></div>`).join('')}</div>`;
+const DOCS_MCMV=[
+  "CNH ou documento com foto","E-mail atualizado","Extrato do FGTS","Número do PIS",
+  "Comprovante de residência atualizado","Certidão de nascimento (se solteiro/a)"];
+function fichaCab(){
+  return `<div class="ficha-cab">
+    <span class="et">Financiamento</span>
+    <h2>Ficha Minha Casa, Minha Vida</h2>
+    <p>Me conta sua situação que eu já te digo quanto dá pra aprovar — antes de você sair procurando casa.</p>
+    <details class="doc-toggle"><summary>Quais documentos vou precisar depois?</summary>
+      <ul class="doc-lista">${DOCS_MCMV.map(d=>`<li>${d}</li>`).join('')}</ul>
+      <p class="doc-nota">Renda CLT: 3 últimos contracheques. MEI/empresa: Declaração de Imposto de Renda.
+        Se casado(a) ou em união estável, documentos dos dois. Eu te mando essa lista certinha pelo WhatsApp
+        quando a gente chegar nessa parte.</p>
+    </details>
+  </div>`;
+}
 
 function telaForm(){
   const c=$('moCorpo');
@@ -753,16 +801,17 @@ function telaForm(){
     $('avanca').onclick=()=>{if(!R.compra){$('err1').classList.add('on');return;}ETAPA=2;telaForm();};
   }
   else if(ETAPA===2){
-    c.innerHTML=trilha(2)+`<div class="etapa">${blocoCondicao()}
+    const voltaBtn = AT ? `<button class="btn btn-g" id="volta">← Voltar</button>` : `<span></span>`;
+    c.innerHTML=(AT?trilha(2):trilha(1,2))+(AT?'':fichaCab())+`<div class="etapa">${blocoCondicao()}
       <div class="erro" id="err2">Preencha os campos obrigatórios (*).</div>
-      <div class="nav-f"><button class="btn btn-g" id="volta">← Voltar</button>
+      <div class="nav-f">${voltaBtn}
         <button class="btn btn-p" id="avanca">Continuar →</button></div></div>`;
     ligaOpcoes();
-    $('volta').onclick=()=>{ETAPA=1;telaForm();};
+    if(AT) $('volta').onclick=()=>{ETAPA=1;telaForm();};
     $('avanca').onclick=()=>{if(!validaCondicao()){$('err2').classList.add('on');return;}ETAPA=3;telaForm();};
   }
   else if(ETAPA===3){
-    c.innerHTML=trilha(3)+`<div class="etapa">
+    c.innerHTML=(AT?trilha(3):trilha(2,2))+`<div class="etapa">
       <h3>Como falo com você?</h3><p class="aj">Só isso e eu já te retorno.</p>
       <div class="fgrid">
         <div class="fcampo"><label>Seu nome *</label><input type="text" id="qNome" value="${esc(R.nome||'')}"></div>
@@ -885,10 +934,10 @@ function telaFim(abriu){
     <h3>Prontinho, ${esc((R.nome||'').split(' ')[0]||'tudo certo')}!</h3>
     <p>Toque abaixo para me enviar a ficha completa — vai a <b>imagem com todos os dados</b>
        junto com a mensagem.</p>
-    <div class="resumo"><h4>Imóvel</h4>
+    ${AT?`<div class="resumo"><h4>Imóvel</h4>
       <div class="rl"><span>Imóvel</span><b>${esc(AT.tit)}</b></div>
       <div class="rl"><span>Local</span><b>${esc(local(AT,true))}</b></div>
-      <div class="rl"><span>Valor</span><b class="num">${brl(AT.preco)}</b></div></div>
+      <div class="rl"><span>Valor</span><b class="num">${brl(AT.preco)}</b></div></div>`:''}
     <div class="resumo"><h4>Suas respostas</h4>
       ${L.map(l=>`<div class="rl"><span>${esc(l[0])}</span><b>${esc(l[1])}</b></div>`).join('')}</div>
     <div class="acoes">
@@ -903,10 +952,13 @@ function telaFim(abriu){
 }
 function montarMensagem(){
   // *texto* fica em negrito no WhatsApp
-  const L=['Olá '+CORRETOR+'! Preenchi a ficha no site.','',
+  const L = AT ? ['Olá '+CORRETOR+'! Preenchi a ficha no site.','',
     '*IMÓVEL DE INTERESSE*',
     AT.tit, local(AT,true), '*'+brl(AT.preco)+'*',
     [AT.q?AT.q+' dorm.':'', AT.banh?AT.banh+' banh.':'', AT.area?AT.area+' m²':'', AT.terreno?'terreno '+AT.terreno+' m²':''].filter(Boolean).join(' · ')+(AT.terreno?' · terreno '+AT.terreno+' m²':''),
+    '', '*MINHA SITUAÇÃO*']
+  : ['Olá '+CORRETOR+'! Preenchi a ficha do Minha Casa, Minha Vida no site.','',
+    '*FICHA MINHA CASA, MINHA VIDA*', 'Quero saber quanto consigo aprovar.',
     '', '*MINHA SITUAÇÃO*'];
   linhasResumo().forEach(l=>L.push('• '+l[0]+': '+l[1]));
   L.push('','*CONTATO*','• Nome: '+(R.nome||'—'));
@@ -929,7 +981,7 @@ function quebrar(ctx, txt, larg){
 }
 async function gerarImagemFicha(){
   const W=1000, L=linhasResumo();
-  const foto = await carregarImg(capa(AT));
+  const foto = AT ? await carregarImg(capa(AT)) : null;
   const logo = await carregarImg('img/mp-icone.png');
   const alturaFoto = foto ? 400 : 0;
   const H = 150 + alturaFoto + 260 + (L.length+4)*46 + (R.obs?160:0);
@@ -962,9 +1014,9 @@ async function gerarImagemFicha(){
 
   // titulo
   y += 54; x.fillStyle='#15181c'; x.font='700 32px Inter, sans-serif';
-  quebrar(x, AT.tit, W-80).slice(0,2).forEach(l=>{ x.fillText(l, 40, y); y+=40; });
+  quebrar(x, AT?AT.tit:'Ficha Minha Casa, Minha Vida', W-80).slice(0,2).forEach(l=>{ x.fillText(l, 40, y); y+=40; });
   y += 8; x.fillStyle='#767d85'; x.font='600 16px Inter, sans-serif';
-  x.fillText('FICHA DE INTERESSE · '+new Date().toLocaleDateString('pt-BR'), 40, y);
+  x.fillText((AT?'FICHA DE INTERESSE':'FICHA MINHA CASA, MINHA VIDA')+' · '+new Date().toLocaleDateString('pt-BR'), 40, y);
   y += 34;
 
   // dados
@@ -1009,7 +1061,7 @@ async function enviarFicha(){
   try{
     btn.textContent = 'Preparando...';
     const blob = await gerarImagemFicha();
-    const arq = new File([blob], 'ficha-imovel-'+AT.id+'.jpg', {type:'image/jpeg'});
+    const arq = new File([blob], (AT?'ficha-imovel-'+AT.id:'ficha-mcmv-'+Date.now())+'.jpg', {type:'image/jpeg'});
     // Web Share: manda a FICHA como arquivo direto pro WhatsApp (celular)
     if(navigator.canShare && navigator.canShare({files:[arq]})){
       await navigator.share({files:[arq], text: montarMensagem()});
