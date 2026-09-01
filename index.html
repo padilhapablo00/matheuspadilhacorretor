@@ -102,6 +102,36 @@ textarea{resize:vertical;min-height:70px}
 .ben p{font-size:13.5px;color:#aeb6be;line-height:1.55}
 .ben .cond{display:block;font-size:11.5px;color:#7d858e;margin-top:3px}
 .ben-net{border-color:rgba(207,38,38,.4);background:linear-gradient(120deg,#2a1b1c,var(--escuro2) 62%)}
+.ben-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:0;border:0;background:none;
+  cursor:pointer;font-family:var(--ui);font-size:12.5px;font-weight:600;color:#ff9d9d;transition:gap .18s ease}
+.ben-link:hover{gap:9px;color:#ffb3b3}
+
+/* ---- passo a passo MCMV ---- */
+.mo-passos .mocx{max-width:600px}
+.passos-head{padding:26px 26px 4px}
+.passos-head .ic{width:44px;height:44px;border-radius:12px;background:var(--acclaro);color:var(--ac);
+  display:grid;place-items:center;margin-bottom:14px}
+.passos-head .ic svg{width:22px;height:22px}
+.passos-head .et{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+.passos-head h2{font-family:var(--disp);font-size:22px;font-weight:600;margin:4px 0 6px;letter-spacing:-.01em}
+.passos-head p{color:var(--tinta2);font-size:13.5px;line-height:1.55}
+.passos-corpo{padding:22px 26px 26px}
+.passos-lista{list-style:none;margin:0;padding:0}
+.passo{position:relative;display:flex;gap:16px;padding-bottom:22px}
+.passo:last-child{padding-bottom:0}
+.passo::before{content:"";position:absolute;left:15px;top:34px;bottom:0;width:1px;background:var(--linha2)}
+.passo:last-child::before{display:none}
+.passo b.num{flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--surf2);
+  border:1px solid var(--linha2);color:var(--tinta);font-family:var(--disp);font-size:13.5px;font-weight:600;
+  display:grid;place-items:center;z-index:1}
+.passo.destaque b.num{background:var(--ac);border-color:var(--ac);color:#fff}
+.passo .tx h4{font-size:14.5px;font-weight:600;margin:5px 0 3px}
+.passo .tx p{font-size:13px;color:var(--tinta2);line-height:1.5}
+.passos-nota{display:flex;gap:10px;align-items:flex-start;margin-top:6px;padding:13px 14px;
+  background:var(--surf2);border:1px solid var(--linha);border-radius:12px}
+.passos-nota svg{flex:none;color:var(--ac);margin-top:1px}
+.passos-nota p{margin:0;font-size:12.5px;color:var(--tinta2);line-height:1.5}
+.passos-corpo .btn{margin-top:16px}
 .net-logo{background:#fff;padding:5px;width:52px;height:52px;flex:0 0 52px;border-radius:50%}
 .net-logo img{width:100%;height:100%;object-fit:contain}
 .net-logo .net-txt{display:none;font-size:11px;font-weight:700;color:#1f3d6b;text-align:center;line-height:1.1}
@@ -355,6 +385,9 @@ footer a{color:#cfd6dc}
         <span class="ben-et">Especialista</span>
         <h3>Minha Casa Minha Vida</h3>
         <p>Enquadramento, subsídio, FGTS e documentação — do começo até a chave na mão.</p>
+        <button class="ben-link" id="btnPassos" type="button">Ver passo a passo do financiamento
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
       </div>
     </article>
     <article class="ben ben-net">
@@ -410,6 +443,47 @@ footer a{color:#cfd6dc}
       <div class="info"><div class="loc" id="moLoc"></div><h2 id="moTit"></h2>
         <div class="pr num" id="moPreco"></div></div></div>
     <div class="corpo" id="moCorpo"></div>
+  </div>
+</div>
+
+<div class="mo mo-passos" id="moPassos">
+  <div class="fundo" id="moPassosFundo"></div>
+  <div class="mocx">
+    <button class="fechar" id="moPassosX" aria-label="Fechar">✕</button>
+    <div class="passos-head">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/></svg></div>
+      <span class="et">Passo a passo</span>
+      <h2>Financiamento Minha Casa, Minha Vida</h2>
+      <p>Do contrato até o dinheiro na mão do vendedor — veja por onde o processo passa.</p>
+    </div>
+    <div class="passos-corpo">
+      <ol class="passos-lista">
+        <li class="passo destaque"><b class="num">1</b><div class="tx">
+          <h4>Contrato de compra e venda</h4><p>Cliente aprova e assinamos o contrato.</p></div></li>
+        <li class="passo"><b class="num">2</b><div class="tx">
+          <h4>Engenharia — R$ 750</h4><p>Geramos a guia e aguardamos a avaliação do imóvel.</p></div></li>
+        <li class="passo"><b class="num">3</b><div class="tx">
+          <h4>Avaliação aprovada</h4><p>A avaliação é anexada à ficha do comprador para dar sequência ao processo.</p></div></li>
+        <li class="passo"><b class="num">4</b><div class="tx">
+          <h4>Caixa Econômica</h4><p>Com a ficha aprovada, acontece o atendimento com os compradores e, depois, com os vendedores.</p></div></li>
+        <li class="passo"><b class="num">5</b><div class="tx">
+          <h4>Tabelionato</h4><p>Documentação segue para os procedimentos necessários.</p></div></li>
+        <li class="passo"><b class="num">6</b><div class="tx">
+          <h4>Registro de Imóveis</h4><p>O contrato é registrado oficialmente.</p></div></li>
+        <li class="passo"><b class="num">7</b><div class="tx">
+          <h4>Retorno à Caixa</h4><p>Documentação registrada volta para a Caixa para conclusão.</p></div></li>
+        <li class="passo destaque"><b class="num">8</b><div class="tx">
+          <h4>Pagamento ao vendedor</h4><p>Após a conclusão, a Caixa libera o valor aos vendedores. Processo concluído.</p></div></li>
+      </ol>
+      <div class="passos-nota">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-5.5 8-12A8 8 0 0 0 4 10c0 6.5 8 12 8 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <p><b style="color:var(--tinta);font-weight:600">Eu acompanho e oriento você em todas as etapas.</b> Nenhum passo você anda sozinho.</p>
+      </div>
+      <a class="btn btn-w" style="width:100%;gap:9px;margin-top:16px" id="btnPassosZap" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.09c-.24.68-1.4 1.3-1.93 1.37-.5.08-1.1.11-1.77-.11-.41-.13-.93-.3-1.6-.6-2.82-1.22-4.66-4.06-4.8-4.25-.14-.19-1.15-1.53-1.15-2.92 0-1.39.73-2.07.99-2.35.26-.28.57-.35.76-.35h.55c.18 0 .41-.07.64.49.24.57.81 1.97.88 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.56.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.16 1.35Z"/></svg>
+        Tirar dúvidas no WhatsApp
+      </a>
+    </div>
   </div>
 </div>
 
@@ -579,6 +653,21 @@ function fechar(){mo.classList.remove('show');document.body.style.overflow='';
 $('moX').onclick=fechar; $('moFundo').onclick=fechar;
 $('moHead').onclick=()=>{if(AT&&AT.n>0)abrirLb(0);};
 
+/* ---------- passo a passo MCMV ---------- */
+const moPassos = $('moPassos');
+$('btnPassosZap').href = 'https://wa.me/'+WHATS+'?text='+encodeURIComponent(
+  'Olá! Vi o passo a passo do Minha Casa Minha Vida no site e queria tirar uma dúvida.');
+function abrirPassos(){
+  moPassos.classList.add('on'); document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>moPassos.classList.add('show')));
+}
+function fecharPassos(){
+  moPassos.classList.remove('show'); document.body.style.overflow='';
+  setTimeout(()=>moPassos.classList.remove('on'),340);
+}
+$('btnPassos').onclick=abrirPassos;
+$('moPassosX').onclick=fecharPassos; $('moPassosFundo').onclick=fecharPassos;
+
 /* ---------- lightbox ---------- */
 let LBI=0;
 function listaFotos(){ return [capa(AT)].concat(
@@ -599,6 +688,7 @@ document.addEventListener('keydown',e=>{
     return;
   }
   if(e.key==='Escape'&&mo.classList.contains('on'))fechar();
+  if(e.key==='Escape'&&moPassos.classList.contains('on'))fecharPassos();
 });
 
 /* ---------- tela 1: imóvel + galeria ---------- */
