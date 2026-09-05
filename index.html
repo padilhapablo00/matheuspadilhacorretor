@@ -59,6 +59,33 @@ footer .marca .av{filter:brightness(0) invert(1)}   /* rodape e' escuro */
 .hero h1{font-size:clamp(34px,5.2vw,58px);margin:16px 0 0;max-width:20ch}
 .hero p{color:var(--tinta2);font-size:16.5px;margin-top:16px;max-width:52ch;line-height:1.65}
 
+/* ---- faixa de entregas ---- */
+.entregas-mini{margin-top:24px}
+.entregas-frase{font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--tinta);margin:0 0 4px}
+.entregas-frase b{color:var(--ac)}
+.entregas-rotulo{display:flex;align-items:center;gap:6px;margin:0 0 16px;font-size:12.5px;color:var(--mut)}
+.entregas-rotulo svg{flex:none;color:var(--ac)}
+.entregas-rotulo b{color:var(--tinta);font-weight:600}
+.mini-strip-wrap{position:relative;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 1.5%,#000 98.5%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 1.5%,#000 98.5%,transparent 100%);
+  overflow:hidden;padding:10px 0 14px}
+.mini-strip-track{display:flex;gap:16px;width:max-content;animation:rolarEntregas 46s linear infinite}
+@media (hover:hover) and (pointer:fine){
+  .mini-strip-wrap:hover .mini-strip-track{animation-play-state:paused}
+}
+@keyframes rolarEntregas{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.foto-mini{flex:0 0 auto;width:130px;height:130px;border-radius:8px;overflow:hidden;
+  border:3px solid var(--surf);box-shadow:0 8px 18px -6px rgba(21,24,28,.28);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, border-color .3s ease}
+@media (hover:hover) and (pointer:fine){
+  .foto-mini:hover{transform:scale(1.1) translateY(-4px);
+    box-shadow:0 16px 30px -8px rgba(207,38,38,.35);border-color:var(--acclaro);z-index:2;position:relative}
+}
+.foto-mini img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:600px){ .foto-mini{width:150px;height:150px;border-radius:9px} .mini-strip-track{gap:14px} }
+@media(prefers-reduced-motion:reduce){ .mini-strip-track{animation:none} }
+
 .filtros{background:var(--surf);border:1px solid var(--linha);border-radius:14px;padding:15px;
   display:flex;gap:11px;flex-wrap:wrap;align-items:flex-end;margin-top:24px}
 .campo{display:flex;flex-direction:column;gap:5px;min-width:140px}
@@ -423,6 +450,17 @@ footer a{color:#cfd6dc}
 </section>
 
 <div class="wrap" id="imoveis">
+  <div class="entregas-mini">
+    <p class="entregas-frase">A próxima conquista será <b>a sua</b>!</p>
+    <div class="entregas-rotulo">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <b>13</b> sonhos realizados
+    </div>
+    <div class="mini-strip-wrap">
+      <div class="mini-strip-track" id="trilhaEntregas"></div>
+    </div>
+  </div>
+
   <div class="filtros">
     <div class="campo"><label for="fTipo">Tipo</label><select id="fTipo"></select></div>
     <div class="campo"><label for="fQuartos">Dormitórios</label><select id="fQuartos">
@@ -604,7 +642,46 @@ const IMOVEIS = [
    itens:["3 dormitórios","Sala de estar","Cozinha","Banheiro","Garagem com churrasqueira","Terreno 11x36 m (396 m²)","Precisa de reforma"]},
   {id:26,tit:"Terreno no Santa Rita",tipo:"Terreno",cidade:"Cruz Alta",bairro:"Santa Rita",end:"",preco:80000,q:0,banh:0,vg:0,area:0,terreno:396,pasta:"im27",n:2,
    desc:"Terreno de excelente dimensão no Bairro Santa Rita — ótimo potencial para construir ou investir.",
-   itens:["Terreno 11x36 m (396 m²)","Bairro Santa Rita"]}
+   itens:["Terreno 11x36 m (396 m²)","Bairro Santa Rita"]},
+  {id:27,tit:"Terreno no Toríbio Veríssimo",tipo:"Terreno",cidade:"Cruz Alta",bairro:"Toríbio Veríssimo",end:"",preco:65000,q:0,banh:0,vg:0,area:0,terreno:375,pasta:"im28",n:2,
+   desc:"Terreno de 15 x 25 m em bairro tranquilo, com fácil acesso a escolas, mercados e transporte público. Documentação em dia.",
+   itens:["Terreno 15 x 25 m (375 m²)","Bairro tranquilo","Fácil acesso a escolas e mercados","Documentação em dia"]},
+  {id:28,tit:"Casa no Fátima",tipo:"Casa",cidade:"Cruz Alta",bairro:"Fátima",end:"",preco:59900,q:2,banh:1,vg:0,area:0,terreno:0,pasta:"im29",n:6,
+   desc:"Casa pronta para morar, construção em material, com terreno próprio. Documentação em dia.",
+   itens:["2 quartos","Sala","Cozinha","Banheiro","Lavanderia","Construção em material","Pronta para morar"]},
+  {id:29,tit:"Área rural de 3 hectares",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:350000,q:0,banh:0,vg:0,area:0,terreno:30000,pasta:"im30",n:2,
+   desc:"Área rural a 18 km da cidade, com apenas 100 metros de asfalto até o local. Ideal para moradia, lazer, cultivo ou investimento. Aceita carro e casa como parte do pagamento, entrada de R$ 150.000.",
+   itens:["Área de 3 hectares","18 km da cidade","100 m de asfalto até o local","Aceita carro e casa na negociação","Entrada de R$ 150.000"]},
+  {id:30,tit:"Casa com apartamento independente",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:150000,q:2,banh:1,vg:0,area:0,terreno:0,pasta:"im32",n:16,
+   desc:"Imóvel amplo e bem distribuído: na parte superior, 2 quartos, sala, cozinha, banheiro e área na frente; na parte inferior, um apartamento independente com 1 quarto, cozinha e banheiro — ideal para gerar renda com locação. Terreno nos fundos com espaço para lazer e possibilidade de ampliação.",
+   itens:["2 quartos na parte superior","Apartamento independente embaixo (1 quarto)","Garagem","Terreno nos fundos","Possibilidade de ampliação"]},
+  {id:31,tit:"Casa na Vila Rocha",tipo:"Casa",cidade:"Cruz Alta",bairro:"Vila Rocha",end:"",preco:300000,q:3,banh:2,vg:1,area:123,terreno:400,pasta:"im33",n:11,
+   desc:"Casa com 123 m² de área construída em pátio amplo de 10 x 40 m. Conforto e espaço para toda a família em todas as estações do ano.",
+   itens:["3 quartos, sendo 1 suíte","Banheiro social","Sala ampla","Lavanderia","Garagem","Lareira","Pátio 10 x 40 m"]},
+  {id:32,tit:"Apartamento no Centro — 2º andar",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Centro",end:"",preco:340000,q:3,banh:2,vg:2,area:0,terreno:0,pasta:"im34",n:9,
+   desc:"Apartamento no 2º andar, em localização privilegiada no Centro, próximo a mercados, farmácias e escolas.",
+   itens:["3 quartos, sendo 1 suíte","Banheiro social","Sala ampla","Sacada","Quartos com vista para a rua","Lavanderia","Garagem para 2 carros"]},
+  {id:33,tit:"Apartamento no Six Residencial",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"",end:"",preco:220000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im35",n:17,
+   desc:"Apartamento no 3º andar, com cozinha planejada, lavanderia com balcões e 2 aparelhos de ar-condicionado inclusos. Aceita financiamento pelo Minha Casa Minha Vida.",
+   itens:["3º andar","2 quartos","Sala de estar","Garagem coberta","Piscina do condomínio","Salão de festas","Cozinha e ar-condicionados inclusos","Minha Casa Minha Vida"]},
+  {id:34,tit:"Área rural com eucaliptos",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:850000,q:0,banh:0,vg:0,area:180,terreno:32000,pasta:"im36",n:0,
+   desc:"Área de 3,2 hectares a apenas 180 metros da cidade, com casa de 180 m² e mais de 700 pés de eucalipto com cerca de 20 anos, prontos para corte — possibilidade de retorno imediato com a madeira. Documentação 100% regularizada.",
+   itens:["Área de 3,2 hectares","Casa de 180 m²","+700 pés de eucalipto prontos para corte","Potencial para loteamento ou condomínio","Documentação regularizada"]},
+  {id:35,tit:"Casa funcional — venda direta",tipo:"Casa",cidade:"Cruz Alta",bairro:"",end:"",preco:160000,q:2,banh:1,vg:0,area:0,terreno:0,pasta:"im37",n:3,
+   desc:"Casa com bom espaço interno, pronta para morar. Valor abaixo do mercado, venda direta — não financia.",
+   itens:["1 suíte","1 quarto","2 salas","Cozinha","Área de serviço","Garagem","Não financia"]},
+  {id:36,tit:"Casa com terreno fechado na Boa Parada",tipo:"Casa",cidade:"Cruz Alta",bairro:"Boa Parada",end:"",preco:280000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im38",n:10,
+   desc:"Casa com ótimo custo-benefício em região tranquila, ideal para morar com a família. Terreno fechado. Financiável.",
+   itens:["2 quartos","Sala aconchegante","Cozinha funcional","Banheiro","Garagem","Terreno fechado","Financiável"]},
+  {id:37,tit:"Terreno ao lado da Avenida Xavantes",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:75000,q:0,banh:0,vg:0,area:0,terreno:250,pasta:"im39",n:1,
+   desc:"Terreno de 10 x 25 m em região de crescimento, ao lado da Avenida Xavantes. Ótima localização para construir ou investir.",
+   itens:["Terreno 10 x 25 m (250 m²)","Ao lado da Avenida Xavantes","Região em crescimento"]},
+  {id:38,tit:"Apartamento de frente para o EASA",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"",end:"",preco:300000,q:2,banh:1,vg:1,area:0,terreno:0,pasta:"im40",n:16,
+   desc:"Apartamento no 4º andar, de frente para o quartel EASA — localização estratégica e muito procurada. Aceita financiamento pelo Minha Casa Minha Vida. Em parceria com a Aura Imobiliária.",
+   itens:["2 quartos","Sala aconchegante","Cozinha funcional","Sacada com vista para a rua","4º andar","Garagem coberta","Minha Casa Minha Vida"]},
+  {id:39,tit:"Quatro lotes na Boa Parada",tipo:"Terreno",cidade:"Cruz Alta",bairro:"Boa Parada",end:"",preco:35000,q:0,banh:0,vg:0,area:0,terreno:1200,pasta:"im41",n:3,
+   desc:"Quatro lotes de 12 x 25 m (300 m² cada), próximos ao asfalto, vendidos individualmente ou os quatro juntos. Lote 1: R$ 35.000 · Lote 2: R$ 35.000 · Lote 3: R$ 50.000 · Lote 4: R$ 60.000.",
+   itens:["4 lotes de 300 m² cada (12x25)","Venda individual ou os 4 juntos","Próximo ao asfalto","A partir de R$ 35.000","Aceita proposta"]}
 ];
 
 /* ========================================================================== */
@@ -1091,6 +1168,15 @@ function seFalhar(img, aoFalhar){
 seFalhar($('fotoM'), ()=>$('retrato').classList.add('semfoto'));
 seFalhar($('imgNet'), ()=>$('netLogo').classList.add('semlogo'));
 preencheFiltros(); renderGrade();
+
+/* ---- faixa de entregas ---- */
+(function(){
+  const N = 13;
+  const fotos = Array.from({length:N},(_,k)=>`img/entregas/e${String(k+1).padStart(2,'0')}.jpg`);
+  const lista = [...fotos, ...fotos]; // duplica pro loop infinito ficar sem emenda
+  $('trilhaEntregas').innerHTML = lista.map(src=>
+    `<div class="foto-mini"><img src="${src}" alt="Entrega realizada" loading="lazy"></div>`).join('');
+})();
 $('waTopo').href = WHATS ? 'https://wa.me/'+WHATS+'?text='+encodeURIComponent(
   'Olá! Vim pelo site e gostaria de saber mais sobre os imóveis disponíveis.') : '#imoveis';
 })();
