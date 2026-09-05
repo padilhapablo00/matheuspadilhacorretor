@@ -584,7 +584,7 @@ const IMOVEIS = [
   {id:17,tit:"Apartamento em frente à Praça da Matriz",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"Centro",end:"",preco:390000,q:3,banh:2,vg:2,area:0,terreno:0,pasta:"im19",n:11,
    desc:"Apartamento completo em uma das localizações mais valorizadas da cidade, em frente à Praça da Matriz. Ideal para morar com conforto ou investir.",
    itens:["3 dormitórios","2 banheiros","Sala ampla e aconchegante","Cozinha","Sacada","Garagem para 2 carros"]},
-  {id:18,tit:"Dois terrenos na Avenida Xavantes",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:424000,q:0,banh:0,vg:0,area:0,terreno:428,pasta:"im20",n:1,
+  {id:18,tit:"Dois terrenos na Avenida Xavantes",tipo:"Terreno",cidade:"Cruz Alta",bairro:"",end:"",preco:424000,q:0,banh:0,vg:0,area:0,terreno:428,pasta:"im20",n:0,
    desc:"Dois terrenos vendidos juntos na Avenida Xavantes, em excelente região de Cruz Alta — área total de 427,50 m² (202,50 m² + 225 m²). Ótima oportunidade para investimento, construção residencial ou comercial.",
    itens:["Área total 427,50 m²","Terreno 1: 202,50 m²","Terreno 2: 225 m²","Avenida Xavantes"]},
   {id:21,tit:"Apartamento na Avenida Barão do Rio Branco",tipo:"Apartamento",cidade:"Cruz Alta",bairro:"",end:"",preco:700000,q:2,banh:2,vg:2,area:0,terreno:0,pasta:"im23",n:17,
@@ -615,7 +615,7 @@ const brl = v => 'R$ ' + nf.format(Math.round(v));
 const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const foto  = (im,i) => P+im.pasta+'-'+String(i).padStart(2,'0')+'.jpg';
 const thumb = (im,i) => P+im.pasta+'-'+String(i).padStart(2,'0')+'t.jpg';
-const capa  = im => im.n>0 ? P+im.pasta+'-capa.jpg' : SEM_FOTO;
+const capa  = im => P+im.pasta+'-capa.jpg';
 const local = (im,comEnd) => [comEnd?im.end:'', im.bairro, im.cidade+' — RS'].filter(Boolean).join(' · ');
 
 /* ---------- grade ---------- */
@@ -669,7 +669,7 @@ function abrir(id, direto){
   AT=IMOVEIS.find(i=>i.id===id); if(!AT) return;
   R={}; ETAPA=direto?1:0;
   $('moIm').src=capa(AT); $('moIm').alt=AT.tit;
-  $('moHead').classList.toggle('semfoto', !(AT.n>0));
+  $('moHead').classList.toggle('semfoto', false);
   $('moTit').textContent=AT.tit;
   $('moLoc').textContent=local(AT,true);
   $('moPreco').textContent=brl(AT.preco);
