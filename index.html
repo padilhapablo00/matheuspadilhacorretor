@@ -309,6 +309,10 @@ textarea{resize:vertical;min-height:70px}
 .fechar{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;border-radius:10px;
   background:rgba(255,255,255,.94);border:0;cursor:pointer;font-size:17px}
 .corpo{padding:22px}
+.cod{display:inline-block;font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--ac2);background:var(--acclaro);padding:2px 7px;margin-right:6px;vertical-align:1px}
+.mohead .cod{background:rgba(255,255,255,.92)}
+.linkbtn{position:absolute;top:14px;right:60px;z-index:3;height:38px;padding:0 13px;border-radius:10px;background:rgba(255,255,255,.94);border:0;cursor:pointer;font-family:var(--ui);font-size:12.5px;font-weight:600;color:var(--tinta)}
+.linkbtn.ok{background:var(--zap);color:#06331d}
 
 .dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:var(--linha);
   border:1px solid var(--linha);border-radius:12px;overflow:hidden}
@@ -506,6 +510,7 @@ footer a{color:#cfd6dc}
   <div class="fundo" id="moFundo"></div>
   <div class="mocx">
     <button class="fechar" id="moX" aria-label="Fechar">✕</button>
+    <button class="linkbtn" id="moLink" type="button">🔗 Copiar link</button>
     <div class="mohead" id="moHead"><img id="moIm" alt=""><div class="grad"></div>
       <div class="info"><div class="loc" id="moLoc"></div><h2 id="moTit"></h2>
         <div class="pr num" id="moPreco"></div></div></div>
@@ -772,6 +777,7 @@ const IMOVEIS = [
 const SEM_FOTO = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e9e6df'/%3E%3Cg fill='none' stroke='%23a9a49a' stroke-width='6' stroke-linejoin='round'%3E%3Cpath d='M120 155 L200 100 L280 155'/%3E%3Cpath d='M138 148 L138 205 L262 205 L262 148'/%3E%3Cpath d='M182 205 L182 168 L218 168 L218 205'/%3E%3C/g%3E%3Ctext x='200' y='245' text-anchor='middle' fill='%238b867c' font-family='Inter,sans-serif' font-size='16'%3EFotos em breve%3C/text%3E%3C/svg%3E";
 const $ = id => document.getElementById(id);
 const nf = new Intl.NumberFormat('pt-BR');
+const cod = i => 'MP-' + String(i.id).padStart(3,'0');
 const brl = v => v ? 'R$ ' + nf.format(Math.round(v)) : 'Valor a consultar';
 const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const foto  = (im,i) => P+im.pasta+'-'+String(i).padStart(2,'0')+'.jpg';
@@ -807,7 +813,7 @@ function renderGrade(){
       ${temFotos?`<div class="strip" style="grid-template-columns:repeat(${nMini+(extra>0?1:0)},1fr)">${minis}${
         extra>0?`<div class="mini mais">+${extra}</div>`:''}</div>`:''}
       <div class="txt">
-        <div class="loc">${esc(local(i,false))}</div>
+        <div class="loc"><span class="cod">${cod(i)}</span>${esc(local(i,false))}</div>
         <h3>${esc(i.tit)}</h3>
         <div class="preco num">${brl(i.preco)}</div>
         <div class="specs">
@@ -857,15 +863,30 @@ function abrir(id, direto){
   $('moIm').src=capa(AT); $('moIm').alt=AT.tit;
   $('moHead').classList.toggle('semfoto', false);
   $('moTit').textContent=AT.tit;
-  $('moLoc').textContent=local(AT,true);
+  $('moLoc').innerHTML='<span class="cod">'+cod(AT)+'</span>'+esc(local(AT,true));
+  $('moLink').textContent='🔗 Copiar link'; $('moLink').classList.remove('ok');
   $('moPreco').textContent=brl(AT.preco);
   direto ? telaForm() : telaImovel();
+  history.replaceState(null,'','#imovel-'+AT.id);
   mo.classList.add('on'); document.body.style.overflow='hidden';
   requestAnimationFrame(()=>requestAnimationFrame(()=>mo.classList.add('show')));
 }
 function fechar(){mo.classList.remove('show');document.body.style.overflow='';
+  if(location.hash) history.replaceState(null,'',location.pathname+location.search);
   setTimeout(()=>{mo.classList.remove('on');mo.classList.remove('avulso');},340);}
 $('moX').onclick=fechar; $('moFundo').onclick=fechar;
+$('moLink').onclick=async()=>{
+  if(!AT) return;
+  const url=location.origin+location.pathname+'#imovel-'+AT.id, b=$('moLink');
+  try{ await navigator.clipboard.writeText(url); }
+  catch(e){ const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+  b.textContent='✓ Link copiado'; b.classList.add('ok');
+};
+// link direto: /#imovel-42 abre o imovel
+function abrePeloLink(){
+  const m=location.hash.match(/^#imovel-(\d+)$/);
+  if(m && IMOVEIS.some(i=>i.id===+m[1])) abrir(+m[1]);
+}
 $('moHead').onclick=()=>{if(AT&&AT.n>0)abrirLb(0);};
 
 /* ---------- ficha avulsa (sem imovel escolhido ainda) ---------- */
@@ -1140,7 +1161,7 @@ function montarMensagem(){
   // *texto* fica em negrito no WhatsApp
   const L = AT ? ['Olá '+CORRETOR+'! Preenchi a ficha no site.','',
     '*IMÓVEL DE INTERESSE*',
-    AT.tit, local(AT,true), '*'+brl(AT.preco)+'*',
+    AT.tit+' ('+cod(AT)+')', local(AT,true), '*'+brl(AT.preco)+'*',
     [AT.q?AT.q+' dorm.':'', AT.banh?AT.banh+' banh.':'', AT.area?AT.area+' m²':'', AT.terreno?'terreno '+AT.terreno+' m²':''].filter(Boolean).join(' · ')+(AT.terreno?' · terreno '+AT.terreno+' m²':''),
     '', '*MINHA SITUAÇÃO*']
   : ['Olá '+CORRETOR+'! Preenchi a ficha do Minha Casa, Minha Vida no site.','',
@@ -1288,6 +1309,7 @@ preencheFiltros(); renderGrade();
 })();
 $('waTopo').href = WHATS ? 'https://wa.me/'+WHATS+'?text='+encodeURIComponent(
   'Olá! Vim pelo site e gostaria de saber mais sobre os imóveis disponíveis.') : '#imoveis';
+abrePeloLink();
 })();
 </script>
 </body>
