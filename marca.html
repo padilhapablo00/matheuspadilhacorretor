@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="favicon.png">
+<title>Marca d'água · Matheus Padilha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ac:#cf2626;--ac2:#a81d1d;--acclaro:#fdeceb;--bg:#f6f4f1;--surf:#fff;--linha:#e7e3dc;--linha2:#d7d2c8;
+  --tinta:#15181c;--tinta2:#464d55;--mut:#767d85;--zap:#25d366;--disp:"Outfit",system-ui,sans-serif;--ui:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font-family:var(--ui);-webkit-font-smoothing:antialiased}
+header{background:var(--surf);border-bottom:1px solid var(--linha)}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+.top{display:flex;align-items:center;gap:11px;height:64px}
+.top img{width:36px;height:36px;object-fit:contain}
+.top b{display:block;font-size:15px;font-weight:600;line-height:1.2}
+.top small{display:block;font-size:11.5px;color:var(--mut)}
+h1{font-family:var(--disp);font-size:26px;font-weight:700;letter-spacing:-.02em;margin:26px 0 6px}
+.sub{margin:0 0 20px;font-size:14.5px;line-height:1.55;color:var(--tinta2)}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;
+  background:var(--surf);border:2px dashed var(--linha2);padding:34px 18px;cursor:pointer;transition:border-color .2s,background .2s}
+.drop:hover,.drop.on{border-color:var(--ac);background:var(--acclaro)}
+.drop b{font-family:var(--disp);font-size:18px;font-weight:600}
+.drop span{font-size:13px;color:var(--mut)}
+.drop input{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--ui);font-size:14.5px;font-weight:700;
+  border:0;padding:13px 20px;cursor:pointer;background:var(--ac);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.sec{background:var(--surf);color:var(--tinta);border:1px solid var(--linha2)}
+.btn.zap{background:var(--zap);color:#06331d}
+.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0}
+.status{font-size:13.5px;color:var(--tinta2);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:40px}
+.item{position:relative;background:#e4e1da;aspect-ratio:1;overflow:hidden}
+.item img{width:100%;height:100%;object-fit:cover;display:block}
+.item .ok{position:absolute;right:6px;top:6px;background:var(--zap);color:#06331d;font-size:11px;font-weight:700;padding:2px 7px}
+.item a{position:absolute;left:0;right:0;bottom:0;background:rgba(21,24,28,.78);color:#fff;text-align:center;
+  font-size:12px;font-weight:600;padding:7px;text-decoration:none}
+.item.carregando::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  animation:brilho 1.1s infinite}
+@keyframes brilho{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.dica{font-size:12.5px;color:var(--mut);line-height:1.55;margin:0 0 40px}
+@media(min-width:620px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(prefers-reduced-motion:reduce){.item.carregando::after{animation:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap top">
+  <img src="img/mp-icone.png" alt="">
+  <span><b>Matheus Padilha</b><small>Ferramenta de marca d'água</small></span>
+</div></header>
+
+<main class="wrap">
+  <h1>Colocar marca d'água</h1>
+  <p class="sub">Escolha as fotos do imóvel. A marca é aplicada na hora, no padrão do site, e as fotos <b>não saem do seu celular</b>.</p>
+
+  <label class="drop" id="drop">
+    <b>Escolher fotos</b>
+    <span>Toque aqui e selecione várias de uma vez</span>
+    <input type="file" id="arq" accept="image/*" multiple>
+  </label>
+
+  <div class="barra">
+    <button class="btn zap" id="btnSalvar" disabled>Salvar / compartilhar tudo</button>
+    <button class="btn sec" id="btnLimpar" disabled>Limpar</button>
+    <span class="status" id="status"></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <p class="dica">Dica: no celular, "Salvar / compartilhar tudo" abre o menu do aparelho — escolha <b>Salvar imagens</b> (galeria) ou <b>WhatsApp</b>. No computador, baixe foto por foto.</p>
+</main>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const MARCA = { largura: 0.45, opacidade: 0.38, qualidade: 0.92, ladoMax: 4096 };
+  let marcaImg = null, resultados = [];
+
+  const carregaMarca = () => new Promise((ok, erro) => {
+    const i = new Image(); i.onload = () => ok(i); i.onerror = erro; i.src = 'img/marca_branca.png';
+  });
+
+  async function marcar(file){
+    // createImageBitmap respeita a rotacao do celular (EXIF) em vez de deixar a foto deitada
+    const bmp = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    let w = bmp.width, h = bmp.height;
+    const maior = Math.max(w, h);
+    if (maior > MARCA.ladoMax){ const e = MARCA.ladoMax / maior; w = Math.round(w*e); h = Math.round(h*e); }
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d');
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(bmp, 0, 0, w, h);
+    const mw = Math.round(w * MARCA.largura), mh = Math.round(mw * marcaImg.height / marcaImg.width);
+    g.globalAlpha = MARCA.opacidade;
+    g.drawImage(marcaImg, Math.round((w-mw)/2), Math.round((h-mh)/2), mw, mh);
+    g.globalAlpha = 1;
+    bmp.close && bmp.close();
+    return new Promise(ok => c.toBlob(b => ok(b), 'image/jpeg', MARCA.qualidade));
+  }
+
+  async function processar(files){
+    // copia a lista ANTES de qualquer await: o FileList do input e' esvaziado quando o campo e' limpo
+    const lista = [...files].filter(f => f.type.startsWith('image/'));
+    if (!marcaImg) marcaImg = await carregaMarca();
+    let feitas = 0;
+    $('status').textContent = `0 de ${lista.length}…`;
+    for (const f of lista){
+      const el = document.createElement('div'); el.className = 'item carregando'; $('grid').appendChild(el);
+      try{
+        const blob = await marcar(f);
+        const nome = f.name.replace(/\.[^.]+$/, '') + ' - com marca.jpg';
+        const url = URL.createObjectURL(blob);
+        resultados.push({ blob, nome, url });
+        el.classList.remove('carregando');
+        el.innerHTML = `<img src="${url}" alt=""><span class="ok">✓</span><a href="${url}" download="${nome.replace(/"/g,'')}">Baixar</a>`;
+      }catch(e){ el.remove(); }
+      feitas++; $('status').textContent = `${feitas} de ${lista.length}…`;
+    }
+    $('status').textContent = `${resultados.length} foto(s) com marca`;
+    $('btnSalvar').disabled = $('btnLimpar').disabled = resultados.length === 0;
+  }
+
+  $('arq').addEventListener('change', e => { processar(e.target.files); e.target.value = ''; });
+  const drop = $('drop');
+  ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('on'); }));
+  ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('on'); }));
+  drop.addEventListener('drop', e => processar(e.dataTransfer.files));
+
+  $('btnSalvar').addEventListener('click', async () => {
+    const arquivos = resultados.map(r => new File([r.blob], r.nome, { type: 'image/jpeg' }));
+    if (navigator.canShare && navigator.canShare({ files: arquivos })){
+      try{ await navigator.share({ files: arquivos }); return; }catch(e){ if (e.name === 'AbortError') return; }
+    }
+    // computador / navegador sem compartilhamento de arquivos: baixa uma a uma
+    for (const r of resultados){
+      const a = document.createElement('a'); a.href = r.url; a.download = r.nome; document.body.appendChild(a); a.click(); a.remove();
+      await new Promise(ok => setTimeout(ok, 350));
+    }
+  });
+
+  $('btnLimpar').addEventListener('click', () => {
+    resultados.forEach(r => URL.revokeObjectURL(r.url)); resultados = [];
+    $('grid').innerHTML = ''; $('status').textContent = ''; $('btnSalvar').disabled = $('btnLimpar').disabled = true;
+  });
+})();
+</script>
+</body>
+</html>
